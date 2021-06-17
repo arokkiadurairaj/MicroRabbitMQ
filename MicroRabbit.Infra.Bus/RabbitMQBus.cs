@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace MicroRabbit.Infra.Bus
 {
-    class RabbitMQBus : IEventBus
+    public class RabbitMQBus : IEventBus
     {
         private readonly IMediator _mediator;
         private readonly Dictionary<string, List<Type>> _handlers;
@@ -88,7 +88,7 @@ namespace MicroRabbit.Infra.Bus
                     var consumer = new AsyncEventingBasicConsumer(channel);
 
                     consumer.Received += Consumer_Received;
-                    channel.BasicConsume("", eventName, null,);
+                    channel.BasicConsume(eventName, true, consumer);
                 }
             }
         }
